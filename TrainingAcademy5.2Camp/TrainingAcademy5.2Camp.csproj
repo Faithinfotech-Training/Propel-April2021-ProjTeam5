@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>TrainingAcademy5._2Camp</RootNamespace>
-  </PropertyGroup>
+     </PropertyGroup>
 
 
 </Project>
