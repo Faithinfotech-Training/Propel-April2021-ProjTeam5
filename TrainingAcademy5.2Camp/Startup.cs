@@ -28,19 +28,7 @@ namespace TrainingAcademy5._2Camp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            .AddJsonOptions(o => o.SerializerSettings.ContractResolver = new DefaultContractResolver());
-            services.AddDbContext<Alien51Context>(o => o.UseSqlServer(Configuration.GetConnectionString("constr")));
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
-            });
-
-
+            services.AddControllers();
 
         }
 
