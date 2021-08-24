@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
@@ -55,7 +57,10 @@ namespace TrainingAcademy5._2Camp.Controllers
             userInDb.Password = user.Password;
             userInDb.Email = user.Email;
             userInDb.Contact = user.Contact;
-            userInDb.Userimage = user.Userimage;
+            userInDb.Address = user.Address;
+            userInDb.State = user.State;
+            userInDb.District = user.District;
+            //userInDb.Userimage = user.Userimage;
             userInDb.Createddate = user.Createddate;
             userInDb.Setpermission = user.Setpermission;
             userInDb.Isactive = user.Isactive;
@@ -77,8 +82,33 @@ namespace TrainingAcademy5._2Camp.Controllers
             _Context.SaveChanges();
             return Ok(userInDb);
         }
+        [HttpGet("St")]
+        public JsonResult Getst(string StType)
+        {
+            string query = @"Select lookupname from lookup where type =" + StType;
+            DataTable table = new DataTable();
+            string sqlDataSource = @"Data Source=faithpropelapril.cyjryyniianp.ap-south-1.rds.amazonaws.com;Initial Catalog=Alien51;User ID=team5;Password=team5";
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
 
-        ////search by Id 
+                }
+            }
+            return new JsonResult(table);
+
+        }
+
+
+
+
+        //search by Id 
         //[HttpGet("GetUser")]
         //[EnableCors("CorsPolicy")]
         //public ActionResult<User> Get(int id)
